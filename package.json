@@ -1,0 +1,23 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "Social Network API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalaniJ94/Social-Network-API.git"
+  },
+  "author": "Kalani Jones",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kalaniJ94/Social-Network-API/issues"
+  },
+  "homepage": "https://github.com/kalaniJ94/Social-Network-API#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
+}
