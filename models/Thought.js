@@ -7,11 +7,11 @@ const thoughtSchema = new Schema(
             type: String,
             required: true,
             max_length: 280,
+            min_length: 1,
         },
         createdAt: {
             type: Date,
             default: Date.now,
-            //use getter method to format timestamp on query
         },
         username: {
             type: String,
@@ -22,10 +22,12 @@ const thoughtSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
-            getters: true,
         },
     },
 );
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+});
 
 const Thought = model('student', studentSchema);
 

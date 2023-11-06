@@ -1,6 +1,5 @@
 //friendCount method needed
-
-module.exports = {
+const userController = { 
     async getUsers(req, res){
         try {
             const users = await User.find();
@@ -36,7 +35,7 @@ module.exports = {
     async createUser(req,res) {
         try {
             const User = await User.create(req.body);
-            res.json(User);
+            return res.status(200).json(User);
         } catch (err) {
             return res.status(500).json(err);
         }
@@ -51,7 +50,7 @@ module.exports = {
             if(!User){
                 return res.status(404).json({message: 'No User found with that ID'});
             }
-        res.json(User);
+        res.status(200).json(User);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -72,10 +71,10 @@ module.exports = {
                 message: 'User deleted, no thoughts found.'
             });
         }
-        res.json({message: 'User has been successfully deleted.'})
+        return res.status(200).json({message: 'User has been successfully deleted.'})
         } catch (err) {
             console.log(err);
-            res.status(500).json(err);
+           return res.status(500).json(err);
         }
     },
     // friend routes
@@ -91,7 +90,7 @@ module.exports = {
             if(!user){
                 return res.status(404).json({message: 'No user with that ID'})
             }
-            res.json(user);
+            return res.status(200).json(user);
         } catch (err) {
             return res.status(500).json(err);
         }
@@ -107,9 +106,10 @@ module.exports = {
                 return res.status(404).json({message:'No user found with that ID'});
             }
 
-            res.json(user);
+            return res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
         }
     },
 };
+module.exports = userController;
