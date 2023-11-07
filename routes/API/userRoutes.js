@@ -1,4 +1,4 @@
-const router = require('express').Router;
+const router = require('express').Router();
 const{
     getUsers,
     getSingleUser,
@@ -19,6 +19,6 @@ router
     .delete(deleteUser);
 
 //friend routes
-router.route('/:userId/friends/:friendId').post(addFriend).delete(deleteFriend);
+router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
 
 module.exports = router; 

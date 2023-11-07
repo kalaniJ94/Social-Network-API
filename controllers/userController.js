@@ -7,10 +7,10 @@ const userController = {
                 users,
                 friendCount: await friendCount(),
             }
-            return res.json(userObj);
+             res.json(userObj);
         } catch (err) {
             console.log(err);
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async getSingleUser (req,res){
@@ -20,7 +20,7 @@ const userController = {
                 .lean();
 
             if(!user){
-                return res.status(404).json({message: 'No user found with that ID!'});
+                 res.status(404).json({message: 'No user found with that ID!'});
             }
 
             res.json({
@@ -29,15 +29,15 @@ const userController = {
             });
         } catch (err) {
             console.log(err);
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async createUser(req,res) {
         try {
             const User = await User.create(req.body);
-            return res.status(200).json(User);
+             res.status(200).json(User);
         } catch (err) {
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async updateUser(req, res) {
@@ -48,7 +48,7 @@ const userController = {
                 {runValidators: true, new: true}
             );
             if(!User){
-                return res.status(404).json({message: 'No User found with that ID'});
+                 res.status(404).json({message: 'No User found with that ID'});
             }
         res.status(200).json(User);
         } catch (err) {
@@ -59,7 +59,7 @@ const userController = {
         try {
             const user = await User.findOneAndRemove({_id: req.params.userId});
         if(!user){
-            return res.status(404).json({message: 'No user found with that ID'})
+             res.status(404).json({message: 'No user found with that ID'})
         }
         const thought = await Thought.findOneAndUpdate(
             { user: req.params.userId},
@@ -67,14 +67,14 @@ const userController = {
             { new: true }
         );
         if(!thought){
-            return res.status(404).json({ 
+             res.status(404).json({ 
                 message: 'User deleted, no thoughts found.'
             });
         }
-        return res.status(200).json({message: 'User has been successfully deleted.'})
+         res.status(200).json({message: 'User has been successfully deleted.'})
         } catch (err) {
             console.log(err);
-           return res.status(500).json(err);
+            res.status(500).json(err);
         }
     },
     // friend routes
@@ -88,11 +88,11 @@ const userController = {
                 {runValidators: true, new: true}
             );
             if(!user){
-                return res.status(404).json({message: 'No user with that ID'})
+                 res.status(404).json({message: 'No user with that ID'})
             }
-            return res.status(200).json(user);
+             res.status(200).json(user);
         } catch (err) {
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async removeFriend(req,res){
@@ -103,10 +103,10 @@ const userController = {
                 {runValidators: true, new: true }
             );
             if(!user){
-                return res.status(404).json({message:'No user found with that ID'});
+                 res.status(404).json({message:'No user found with that ID'});
             }
 
-            return res.status(200).json(user);
+             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
         }

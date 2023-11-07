@@ -4,7 +4,7 @@ const thoughtController = {    //GET all thoughts
     async getThoughts(req, res) {
         try {
             const thoughts = await Thought.find();
-            return res.status(200).json(thoughts);
+             res.status(200).json(thoughts);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -18,7 +18,7 @@ const thoughtController = {    //GET all thoughts
             if(!course){
                 return res.status(404).json({message: 'No course with that ID'});
             }
-            return res.status(200).json(thought);
+             res.status(200).json(thought);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -32,10 +32,10 @@ const thoughtController = {    //GET all thoughts
                 {$addToSet: {thoughts: thought._id}},
                 {runValidators: true, new: true }
             ); 
-            return res.status(200).json(User, thought);
+             res.status(200).json(User, thought);
         } catch (err) {
             console.log(err);
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async updateThought(req,res){
@@ -46,12 +46,12 @@ const thoughtController = {    //GET all thoughts
                 {runValidators: true, new: true}    
             );
         if(!thought){
-            return res.status(404).json({message: 'No thought found with that ID!'});
+             res.status(404).json({message: 'No thought found with that ID!'});
         }
-        return res.status(200).json(thought);
+         res.status(200).json(thought);
         } catch (err) {
             console.log(err);
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
     async deleteThought(res,req){
@@ -59,12 +59,12 @@ const thoughtController = {    //GET all thoughts
             const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
 
             if(!thought){
-                return res.status(404).json({message: 'No thought found with that ID'});
+                 res.status(404).json({message: 'No thought found with that ID'});
             }
-            return res.status(200).json(thought);
+             res.status(200).json(thought);
         } catch (err) {
             console.log(err);
-            return res.status(500).json(err);
+             res.status(500).json(err);
         }
     },
 
@@ -78,13 +78,13 @@ const thoughtController = {    //GET all thoughts
           );
     
           if (!reaction) {
-            return res.status(404).json({ message: "No thought with that ID" });
+             res.status(404).json({ message: "No thought with that ID" });
           }
     
-          return res.status(200).json(reaction);
+           res.status(200).json(reaction);
         } catch (err) {
           console.log(err);
-          return res.status(500).json(err);
+           res.status(500).json(err);
         }
       },
       async deleteReaction(req, res) {
@@ -96,15 +96,15 @@ const thoughtController = {    //GET all thoughts
           );
     
           if (!reaction) {
-            return res
+             res
               .status(404)
               .json({ message: "Check thought and reaction ID" });
           }
     
-          return res.status(200).json(reaction);
+           res.status(200).json(reaction);
         } catch (err) {
           console.log(err);
-          return res.status(500).json(err);
+           res.status(500).json(err);
         }
       },
 };
