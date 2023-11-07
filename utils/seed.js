@@ -7,8 +7,16 @@ const users = [
     {
         username: 'KalaniJ',
         email: "kalani@gmail.com",
-        thought: [],
+        thought: ['Hello World'],
     },
+    {
+        username: 'Lizzy',
+        email: 'lizzy@gmail.com',
+    },
+    {
+        username: 'Mars Bars',
+        email: 'mars@bars.com',
+    }
 ];
 
 console.log(connection);
