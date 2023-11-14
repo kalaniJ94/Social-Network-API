@@ -4,18 +4,22 @@ const userController = {
   async getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
-      .catch((err) => console.log(err) && res.status(500).json(err));
+      .catch((err) => {
+        console.log(err); 
+        res.status(500).json(err)
+      });
   },
   async getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
+    // .then((users))
       .select("-__v")
       .populate("friends")
       .populate("thoughts")
-      .then((user) => {
-        if (!user) {
+      .then((users) => {
+        if (!users) {
           return res.status(404).json({ message: "No user with this id!" });
         }
-        res.json(user);
+        res.json(users);
       })
       .catch((err) => {
         console.log(err);
@@ -27,26 +31,29 @@ const userController = {
       username: req.body.username,
       email: req.body.email,
     })
-      .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
+      .then((user) =>  res.json(user))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err)
+      });
   },
   async updateUser(req, res) {
 
     // Perform a direct query to the database using the mongo shell or a GUI to confirm the user exists
-    User.findById(params.userId) // Using findById for direct ID check
+    User.findById(req.params.userId) // Using findById for direct ID check
       .then((user) => {
         if (!user) {
-          console.log("User not found in the database with ID:", params.userId);
+          console.log("User not found in the database with ID:", req.params.userId);
           res.status(404).json({ message: "No user found with this id!" });
           return;
         }
         // User exists, proceed with update
-        User.findOneAndUpdate({ _id: params.userId }, body, {
+        User.findOneAndUpdate({ _id: req.params.userId }, req.body, {
           new: true,
           runValidators: true,
         })
           .then((updatedUser) => {
-            res.json(updatedUser);
+            res.json(user);
           })
           .catch((err) => {
             console.error(err);
@@ -64,7 +71,7 @@ const userController = {
       });
   },
   async deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
+    User.findOneAndDelete({ _id: req.params.userId })
         .then((user) =>
             !user
             ? res.status(404).json({ message: 'No user with that ID' })
@@ -75,7 +82,10 @@ const userController = {
                 : res.json(user)
               )
             )
-        .catch((err) => res.status(500).json(err));
+        .catch((err) =>{
+          console.log(err);
+         res.status(500).json(err)
+      });
   },
   // friend routes
   async addFriend(req, res) {
@@ -94,7 +104,10 @@ const userController = {
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json(user)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) =>{
+        console.log(err);
+       res.status(500).json(err)
+    });
   },
   async removeFriend(req, res) {
     User.findOne({ _id: req.params.friendId })
@@ -104,7 +117,7 @@ const userController = {
           { _id: req.params.userId}, 
           // missing a nested object for the user to remove??
           {$pull: {
-              friends: user._id
+              friends: req.params.friendId
           }},
           { new: true} 
         );
@@ -113,7 +126,10 @@ const userController = {
         ? res.status(404).json({ message: 'No user with that ID' })
         : res.json(user)
     )
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err)
+    });
 }
 };
 module.exports = userController;

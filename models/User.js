@@ -13,6 +13,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       match: [/.+@.+\..+/, "Must match an email address!"],
+    },
       thoughts: [
         {
           type: Schema.Types.ObjectId,
@@ -22,16 +23,17 @@ const userSchema = new Schema(
       friends: [
         {
           type: Schema.Types.ObjectId,
-          ref: "User",
+          ref: "user",
+        
         },
       ],
-    },
   },
   {
     toJSON: {
       virtuals: true,
     },
     id: false,
+    strictPopulate: false,
   }
 );
 //friend count

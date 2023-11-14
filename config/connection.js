@@ -1,7 +1,9 @@
-const {connect, connection } = require('mongoose');
+const mongoose = require('mongoose');
 
-const connectionString = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/networkDB';
+mongoose.connect(
+ process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/networkDB',
+ 
 
-connect(connectionString);
+);
 
-module.exports = connection;
+module.exports = mongoose.connection;

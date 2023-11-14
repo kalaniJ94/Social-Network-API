@@ -8,6 +8,8 @@ const users = [
         username: 'KalaniJ',
         email: "kalani@gmail.com",
         thought: ['Hello World'],
+        friend: ['654ac708fc0e1a56fe517e1c']
+
     },
     {
         username: 'Lizzy',
